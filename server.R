@@ -1,8 +1,11 @@
 library(shiny)
 
 # Berechnungen und Diagramm
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
   
+  # Sicherstellen, dass Rechenaufwand nicht zu groß wird bei Eingabe der Stichprobengroesse und -anzahl ueber die Tastatur
+  observeEvent(input$npers, if (input$npers>1000 | is.na(input$npers)) updateNumericInput(session, "npers", value=20))
+  observeEvent(input$nstpr, if (input$nstpr>2000 | is.na(input$nstpr)) updateNumericInput(session, "nstpr", value=500))  
   # Datensaetze ####
   # Datensatz fuer die Graphiken 
   datasetInput <- reactive({

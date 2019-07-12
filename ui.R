@@ -34,8 +34,8 @@ shinyUI(
       checkboxInput("schaetzki", "Konfidenzintervall", value = TRUE),
       numericInput("nummer", "Stichprobe Nr.", 1, min=1, max = "nstpr"),
       h4("Simulation"),
-      numericInput("npers", "Beobachtungen je Stichprobe", 20, min=1),
-      numericInput("nstpr", "Anzahl der Stichproben", 500, min=1),
+      numericInput("npers", "Beobachtungen je Stichprobe (max. 1000)", 20, min=1, max=1000),
+      numericInput("nstpr", "Anzahl der Stichproben (max. 2000)", 500, min=0, max=2000, step = 50),
       h4("Flaechen"), 
       sliderInput("alpha",
                   "alpha-Niveau",
@@ -64,8 +64,27 @@ shinyUI(
                   tabPanel("Konfidenzintervall", plotOutput("kiPlot")),
                   tabPanel("p-Wert", plotOutput("pPlot")),
                   tabPanel("Power", plotOutput("Plot2")),
-                  tabPanel("Kontakt", h1("Kontaktdaten"), "Bei Rueckfragen und Verbesserungsvorschlaege zu dieser Shiny-App kontaktieren Sie bitte sonja.hahn@ph-karlsruhe.de")))
-#       
+                  tabPanel("About",
+                           br(),
+                           strong("App"),
+                           br(),
+                           p("Diese App wurde mit R und ", a("Shiny", href="http://www.rstudio.com/shiny/", target="_blank"), " entwickelt.", br(),
+                           "Der Code für die App kann bei ",  a('GitHub', href='https://github.com/SonjaHahn/SignApp', target="_blank"),
+                             "eingesehen und heruntergeladen werden.", br(),
+                             "Die App kann mit den folgenden Befehlen lokal auf einem Rechner in R ausgeführt werden:"),
+                           code('library(shiny)'),br(),
+                           code('runGitHub("SignApp","SonjaHahn")'),
+
+
+                           br(),      br(),
+                           strong('Autor'),
+                           p("Sonja Hahn", br(),
+                             a("sonja.hahn@ph-karlsruhe.de", href="mailto:sonja.hahn@ph-karlsruhe.de"), br(),
+                             a("Pädagogische Hochschule Karlsruhe", href="https://www.ph-karlsruhe.de")), br(),
+                           
+                           a(img(src="https://i.creativecommons.org/l/by/4.0/88x31.png"), target="_blank", href="http://creativecommons.org/licenses/by/4.0/"))
+ 
+        )) #end tabset panel
       ) # end main panel
     ) # end sidebar layout
   ) # end fluid page
